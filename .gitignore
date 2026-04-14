@@ -5,3 +5,6 @@ Sessions/
 .venv/
 venv/
 env/
+
+# Ignore local VS Code workspace settings
+.vscode/
