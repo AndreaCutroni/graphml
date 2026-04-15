@@ -1,5 +1,5 @@
 # Ignore all notebook/session files
-Sessions/
+Notebooks/
 
 # Ignore Python virtual environments
 .venv/
