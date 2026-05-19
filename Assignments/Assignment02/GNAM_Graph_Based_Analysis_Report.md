@@ -33,7 +33,16 @@ The analysis graph contains 1319 vertices and 2242 edges.
 
 The shortest path analysis demonstrates the optimal routes through the building from the four corners of the gallery (upper left, upper right, lower right, and lower left) to the main entrance. The red line indicates the shortest topological path, while the blue line shows the straightened path after geometric optimization.
 
+| Corner | Distance to Entrance |
+|--------|----------------------|
+| Upper Left | 128m |
+| Upper Right | 133m |
+| Lower Left | 65m |
+| Lower Right | 73m |
+
 **Results**: The upper corners show similar distances to the entrance (128m and 133m) despite different routes. The lower left corner is significantly closer to the entrance than the lower right corner.
+
+
 
 ### 4. Closeness Centrality (Integration)
 ![GNAM Closeness Centrality](Images/GNAM/GNAM_ClosenessCentrality.png)
