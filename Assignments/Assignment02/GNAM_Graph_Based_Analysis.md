@@ -8,68 +8,61 @@ This analysis applies graph-based spatial intelligence methods to understand the
 
 The Galleria Nazionale d'Arte Moderna (National Gallery of Modern Art) is located in Rome, Italy, and is housed in a purpose-built neoclassical structure in the Viale delle Belle Arti area. The museum is one of the most important collections of modern and contemporary art in Europe, featuring works from the 19th and 20th centuries. The building itself is an architectural achievement, characterized by its grand proportions, symmetrical layout, and carefully planned spatial organization designed to facilitate the circulation of visitors through its gallery spaces.
 
+![GNAM Plan](Assets/GNAM_floorplan.jpg)
+
 ## Method
 
-### 1. Original Floorplan
+### 1. Floorplan & Grid Overlay
 ![GNAM Floorplan](Images/GNAM/GNAM.png)
-
-The original floorplan of GNAM reveals the building's fundamental spatial organization. The geometric outline shows the overall footprint and architectural boundaries that define the museum's spatial envelope. This representation establishes the baseline for all subsequent analyses.
-
-### 2. Grid Overlay
 ![GNAM Grid](Images/GNAM/GNAM_Grid.png)
 
-A regular grid with 3-meter spacing is applied to discretize the continuous space into analyzable units. This grid transformation converts the complex architectural geometry into a regular matrix of cells, enabling quantitative analysis of spatial distribution. The grid serves as the foundation for deriving the navigation and analysis graphs, ensuring uniform sampling of the spatial domain while respecting the boundaries of the building.
+The floorplan has an overall area of 8277.8 m^2.
 
-**Results**: The grid creates 84 spatial cells that collectively cover the entire floorplan, providing a sufficient resolution for detailed spatial analysis while remaining computationally tractable.
+A regular grid with 3-meter spacing is applied to discretize the continuous space into analyzable units. The grid serves as the foundation for deriving the navigation and analysis graphs.
 
-### 3. Analysis Graph
+### 2. Analysis Graph
 ![GNAM Graph](Images/GNAM/GNAM_Graph.png)
 
-The graph representation transforms the spatial cells into a network of nodes and edges, where nodes represent individual grid cells and edges represent adjacency relationships between neighboring cells. This topological abstraction captures the connectivity structure of the space, independent of actual distances or geometric properties.
+The analysis graph contains 1319 vertices and 2242 edges.
 
-**Results**: The analysis graph contains 84 vertices and 156 edges, forming a connected network where each space is reachable from every other space through a sequence of adjacent cells. This structure reveals the fundamental connectivity of the museum's layout.
+### 3. Shortest Path Analysis
+![GNAM Shortest Path_1](Images/GNAM/GNAM_ShortestPath_65m.png)
+![GNAM Shortest Path_2](Images/GNAM/GNAM_ShortestPath_73m.png)
+![GNAM Shortest Path_3](Images/GNAM/GNAM_ShortestPath_128m.png)
+![GNAM Shortest Path_4](Images/GNAM/GNAM_ShortestPath_133m.png)
 
-### 4. Shortest Path Analysis
-![GNAM Shortest Path](Images/GNAM/GNAM_ShortestPath_127m.png)
+The shortest path analysis demonstrates the optimal routes through the building from the four corners of the gallery (upper left, upper right, lower right, and lower left) to the main entrance. The red line indicates the shortest topological path, while the blue line shows the straightened path after geometric optimization.
 
-The shortest path analysis demonstrates the optimal routes through the building from one location to another. In this example, the path from the upper left gallery area to the central ground level requires approximately 127 meters of walking distance. The red line indicates the shortest topological path, while the blue line shows the straightened path after geometric optimization.
+**Results**: The upper corners show similar distances to the entrance (128m and 133m) despite different routes. The lower left corner is significantly closer to the entrance than the lower right corner.
 
-**Results**: Multiple shortest path queries reveal that the building's circulation is relatively efficient, with most gallery-to-gallery transitions achievable within 60-150 meters. However, certain spatial transitions between non-adjacent zones require substantial detours, indicating localized clustering of accessible areas.
-
-### 5. Closeness Centrality (Integration)
+### 4. Closeness Centrality (Integration)
 ![GNAM Closeness Centrality](Images/GNAM/GNAM_ClosenessCentrality.png)
 
 Closeness centrality measures how close each space is to all other spaces in the network, represented by color gradients from cool (low integration) to warm (high integration) hues. High closeness centrality indicates globally accessible spaces that can reach all other areas efficiently with minimal hops.
 
-**Results**: The analysis reveals a core zone of high integration (warm colors) concentrated in the central gallery spaces, with reduced integration toward the peripheral zones and upper levels. This indicates that the building's primary circulation routes converge on the central areas, making them natural gathering and transition points. Peripheral exhibition spaces have lower integration, suggesting they are more isolated and serve specialized curatorial purposes.
+**Results**: The analysis reveals a core zone of high integration (warm colors) concentrated in the central gallery spaces. Notably, the cafe/restaurant in the lower left corner shows low integration, indicating it is functionally separated from the main museum circulation. The lower left section is generally less accessible compared to the lower right, showing reduced integration.
 
-### 6. Betweenness Centrality (Choice)
+### 5. Betweenness Centrality (Choice)
 ![GNAM Betweenness Centrality](Images/GNAM/GNAM_BetweennessCentrality.png)
 
 Betweenness centrality identifies spaces that lie on the shortest paths between many other spaces. High betweenness indicates "chokepoint" locations that are strategically important for circulation, as many paths must pass through these areas. These spaces function as essential connectors within the network.
 
-**Results**: A clear hierarchy of connector spaces emerges, with certain corridors and central gallery sections showing exceptionally high betweenness values. These strategic spaces are critical for circulation and would be most disrupted by congestion or barriers. The distribution is asymmetric, with some areas far more critical to overall flow than others, despite the building's relatively symmetric layout.
+**Results**: Higher betweenness values are concentrated in the lower part of the upper building body, where critical corridors and gallery sections form essential circulation nodes. The distribution is asymmetric, with certain areas more critical to overall flow than others, despite the building's symmetric layout.
 
-### 7. Community Detection
+### 6. Community Detection
 ![GNAM Community Partition](Images/GNAM/GNAM_CommunityPartition.png)
 
-Community detection algorithms identify clusters of spaces that are more densely connected to each other than to the rest of the network. These communities often correspond to functional zones or galleries that share common circulation patterns and accessibility characteristics.
+Community detection algorithms identify clusters of spaces that are more densely connected to each other than to the rest of the network. These communities often correspond to functional zones that share common circulation patterns and accessibility characteristics.
 
-**Results**: The algorithm identifies 6-8 distinct community clusters within the building. These communities do not follow strict symmetrical divisions despite the building's geometric symmetry, indicating that functional accessibility creates emergent spatial groupings. Some communities span multiple physical galleries, while others subdivide single large spaces, demonstrating that topological connectivity differs from architectural compartmentalization.
+**Results**: The algorithm identifies 23 distinct community clusters within the building. These communities do not follow strict symmetrical divisions despite the building's geometric symmetry, indicating that functional accessibility creates emergent spatial groupings. Some communities span multiple physical galleries, while others subdivide single large spaces, demonstrating that topological connectivity differs from architectural compartmentalization.
 
-### 8. Degree Centrality Graph
+### 7. Degree Centrality
 ![GNAM Degree Centrality Graph](Images/GNAM/GNAM_DegreeCentralityGraph.png)
-
-Degree centrality measures the number of direct connections (adjacent spaces) for each location. The graph representation uses vertex size and color to indicate degree values, with larger red vertices showing higher connectivity. This view emphasizes local connectivity independent of broader network effects.
-
-**Results**: The graph visualization shows that central gallery spaces have significantly higher degree centrality than peripheral zones, indicating they offer more immediate movement choices to visitors. The distribution reveals clusters of high-connectivity spaces distributed throughout the building, suggesting multiple alternative routes and circulation options in well-designed gallery zones.
-
-### 9. Degree Centrality (Spatial Heat Map)
 ![GNAM Degree Centrality](Images/GNAM/GNAM_DegreeCentrality.png)
 
-The spatial heat map of degree centrality overlays connectivity values directly onto the floorplan using color gradients (viridis scale: purple for low connectivity, yellow for high connectivity). This representation directly links connectivity metrics to specific spatial locations, making it easy to identify well-connected versus isolated areas.
+Degree centrality measures the number of direct connections (adjacent spaces) for each location (viridis scale: purple for low connectivity, yellow for high connectivity). This representation directly links connectivity metrics to specific spatial locations, making it easy to identify well-connected versus isolated areas.
 
-**Results**: The heat map reveals a non-uniform distribution of connectivity despite the building's architectural symmetry. Central axes show consistently high degree centrality, while certain wings and peripheral galleries exhibit lower connectivity. This asymmetry in local connectivity, combined with the symmetric architectural form, creates complex patterns of spatial experience and movement flow.
+**Results**: The heat map reveals a non-uniform distribution of connectivity despite the building's architectural symmetry. Central axes show consistently high degree centrality, while certain wings and peripheral galleries exhibit lower connectivity.
 
 ## Conclusions
 
@@ -81,15 +74,6 @@ The GNAM presents a fascinating case study in the disjunction between **architec
 
 2. **Flow Concentration**: The centrality analyses demonstrate that circulation flow is concentrated along specific routes and through particular spaces. These chokepoints (high betweenness centrality) do not respect the architectural symmetry and indicate that visitor movement follows specific functional patterns rather than being equally distributed across symmetric alternatives.
 
-3. **Isolation in Peripheral Zones**: Peripheral gallery spaces, even when architecturally equivalent to central galleries on opposite sides of the building, exhibit different accessibility characteristics. This suggests that the sequence of transitions through the building creates functional differentiation that transcends geometric symmetry.
-
-4. **Community Formation**: The emergent community structure reveals that topologically defined spatial clusters do not align with symmetric architectural divisions, indicating that accessibility creates functional zones that supersede the intended symmetric organization.
-
-### Implications for Curatorial and Visitor Experience
-
-These asymmetries have significant implications for museum operation:
-- **Congestion Points**: High-betweenness spaces will experience congestion during peak hours, regardless of architectural intentions
-- **Exhibition Strategy**: Peripheral galleries with low integration may require enhanced curatorial emphasis or directional cues to attract visitor flow
-- **Accessibility Planning**: Emergency egress and accessibility considerations must account for the actual flow patterns revealed by the network analysis, not merely the symmetric plan geometry
+3. **Isolation in Peripheral Zones**: Peripheral gallery spaces, even when architecturally equivalent to central galleries on opposite sides of the building, exhibit different accessibility characteristics. This suggests that the sequence of transitions through the building creates functional differentiation that transcends geometric symmetry. Peripheral galleries with low integration may require enhanced curatorial emphasis or directional cues to attract visitor flow
 
 The analysis demonstrates that **spatial graphs reveal the true functional organization of complex buildings**, distinguishing between intended design symmetry and emergent operational asymmetry.
