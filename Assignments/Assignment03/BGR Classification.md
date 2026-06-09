@@ -38,11 +38,11 @@ Before running the notebook, the building must be modelled in **Rhino** and expo
 | `offices.obj` | Office volumes |
 | `core.obj` | Core and corridors |
 
-![Imported building geometry from Rhino OBJ files](Image/building.png)
+![Imported building geometry from Rhino OBJ files](Images/building.png)
 
 ![Color-coded cells after category assignment — green: ground, yellow: offices, blue: columns, red: core](Images/color-coded.png)
 
-### ssign Categories (Selectors)
+### Assign Categories (Selectors)
 
 Each spatial element is assigned a **semantic tag** via a dictionary attached to an internal vertex. The selector acts as a pointer that carries the cell's identity metadata:
 
@@ -58,13 +58,13 @@ The process for each element type:
 
 ---
 
-### Step 3 — Build the CellComplex
+### Build the CellComplex
 
 All individual cells from every layer are merged into a single unified **CellComplex** — a topological structure that knows which cells share faces. This is the spatial model of the building.
 
 ---
 
-### Step 4 — Transfer Dictionaries
+### Transfer Dictionaries
 
 The semantic tags created in Step 2 are transferred from the selectors onto the actual cells of the CellComplex. `TransferDictionariesBySelectors` matches each selector's internal vertex to the cell it sits inside, copying the dictionary onto that cell.
 
@@ -72,7 +72,7 @@ After this step, every cell in `model` carries its `cell_type`, `cell_name`, and
 
 ---
 
-### Step 5 — Build the Adjacency Graph + One-Hot Features
+### Build the Adjacency Graph + One-Hot Features
 
 **What happens:** The CellComplex is converted into a **graph** where:
 - Each **node** = one spatial cell
@@ -90,7 +90,7 @@ These five values are stored as `feature_00` through `feature_04` on each vertex
 
 ---
 
-### Step 6 — Export to CSV
+### Export to CSV
 
 The annotated graph is exported to three CSV files that serve as input for the prediction notebook.
 
