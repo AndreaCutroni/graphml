@@ -24,10 +24,10 @@ The pipeline spans two notebooks:
 ### Rhino Model
 
 The building is modelled in Rhino. The building has a rectangular shaper (20x70 m) with 9 floors. The first floors is elevated by columns. The model has the following features:
-- **54 ground polysurfaces
-- **20 columns polysurfaces
-- **9 cores polysurfaces
-- **104 offices polysurfaces
+- 54 ground polysurfaces
+- 20 columns polysurfaces
+- 9 cores polysurfaces
+- 104 offices polysurfaces
 
 Before running the notebook, the building must be modelled in **Rhino** and exported as **four separate OBJ files**, each corresponding to a spatial layer:
 
@@ -38,21 +38,13 @@ Before running the notebook, the building must be modelled in **Rhino** and expo
 | `offices.obj` | Office volumes |
 | `core.obj` | Core and corridors |
 
-![Imported building geometry from Rhino OBJ files](building.png)
+![Imported building geometry from Rhino OBJ files](Image/building.png)
 
-![Color-coded cells after category assignment — green: ground, yellow: offices, blue: columns, red: core](color-coded.png)
+![Color-coded cells after category assignment — green: ground, yellow: offices, blue: columns, red: core](Images/color-coded.png)
 
----
+### ssign Categories (Selectors)
 
-### Step 1 — Import & Tag
-
-The four OBJ files are loaded as topological objects using `Topology.ByOBJPath`. Each file becomes a list of geometry objects that will later be tagged and merged.
-
----
-
-### Step 2 — Assign Categories (Selectors)
-
-Each spatial element is assigned a **semantic tag** via a dictionary attached to an internal vertex (a *selector*). The selector acts as a pointer that carries the cell's identity metadata:
+Each spatial element is assigned a **semantic tag** via a dictionary attached to an internal vertex. The selector acts as a pointer that carries the cell's identity metadata:
 
 - `cell_type` — integer category (0–4)
 - `cell_name` — human-readable string (`"ground"`, `"office"`, etc.)
