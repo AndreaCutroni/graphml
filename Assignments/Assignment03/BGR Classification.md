@@ -23,7 +23,11 @@ The pipeline spans two notebooks:
 
 ### Rhino Model
 
-The building is modelled in Rhino.
+The building is modelled in Rhino. The building has a rectangular shaper (20x70 m) with 9 floors. The first floors is elevated by columns. The model has the following features:
+- **54 ground polysurfaces
+- **20 columns polysurfaces
+- **9 cores polysurfaces
+- **104 offices polysurfaces
 
 Before running the notebook, the building must be modelled in **Rhino** and exported as **four separate OBJ files**, each corresponding to a spatial layer:
 
@@ -55,15 +59,6 @@ The process for each element type:
 2. Flatten the face lists and merge them into a single topology (`SelfMerge`)
 3. Extract closed volumetric cells from the merged topology
 4. For each cell, create an internal vertex and attach a dictionary to it
-
-```python
-# Category mapping
-ground  = 0   # green
-column  = 1   # blue
-plinth  = 2   # (reserved, not used in this example)
-office  = 3   # yellow
-core    = 4   # red
-```
 
 ---
 
@@ -113,14 +108,14 @@ The annotated graph is exported to three CSV files that serve as input for the p
 
 ## Part 2 — Predicting with the Pre-Trained Model
 
-### Step 3 — Load the Pre-Trained Model
+### Load the Pre-Trained Model
 
 
 The model was trained on the full Building-Ground Relationship dataset and has already learned to associate graph topology and node feature distributions with the five relationship categories.
 
 ---
 
-### Step 5 — Predict and Inspect Results
+### Predict and Inspect Results
 
 The results are organised into a DataFrame with five columns:
 
@@ -134,6 +129,6 @@ The results are organised into a DataFrame with five columns:
 
 **Confidence** is derived from the maximum value in the model's output probability distribution across all five classes. A confidence of `1.0` means the model assigned essentially all probability mass to a single class — it was maximally certain. A confidence of `0.5` or lower suggests the model was uncertain between multiple classes.
 
-> **Note:** High confidence does not guarantee a correct prediction. A confident wrong prediction (e.g. confidence `1.0` but `Actual ≠ Predicted`) often indicates that your building shares strong structural features with a different category, or that the two categories are architecturally similar in ways the model has learned to conflate.
+> **Note:** High confidence does not guarantee a correct prediction. A confident wrong prediction (e.g. confidence `1.0` but `Actual ≠ Predicted`) often indicates that the  building shares strong structural features with a different category, or that the two categories are architecturally similar in ways the model has learned to conflate.
 
 ```
