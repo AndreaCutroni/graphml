@@ -38,6 +38,10 @@ Before running the notebook, the building must be modelled in **Rhino** and expo
 | `offices.obj` | Office volumes |
 | `core.obj` | Core and corridors |
 
+![Imported building geometry from Rhino OBJ files](building.png)
+
+![Color-coded cells after category assignment — green: ground, yellow: offices, blue: columns, red: core](color-coded.png)
+
 ---
 
 ### Step 1 — Import & Tag
